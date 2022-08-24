@@ -1,7 +1,6 @@
 import 'package:characterization/server/network_button.dart';
+import 'package:characterization/server/speed_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:characterization/components/h_card.dart';
-import 'package:characterization/components/h_scaffold.dart';
 import 'package:characterization/constants.dart';
 
 void main() {
@@ -40,27 +39,9 @@ class MyApp extends StatelessWidget {
             ),
           )
         ),
-        body: Center(
-          child: Column(
-            children: [
-              Expanded(
-                child: Container()
-              ),
-              Expanded(
-                child: Card(
-                  color: kPrimaryColor,
-                  child: Padding(
-                    padding: EdgeInsets.all(20),
-                    child: NetworkButton()
-                  )
-                ),
-              ),
-              Expanded(
-                child: Container()
-              ),
-            ],
-          )
-        )
+        body:
+          // Main()
+          Test()
       )
     );
   }
@@ -69,99 +50,116 @@ class MyApp extends StatelessWidget {
 class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return HScaffold(
-      body: Padding(
-        padding: EdgeInsets.all(15),
-        child: Column(
-          children: [
-            Expanded(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Card(
-                        color: kPrimaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(7.5))
-                        ),
-                        elevation: 5,
-                        child: Container()
-                      )
-                    )
-                  ),
-                  const Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Card(
-                        color: kPrimaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(7.5))
-                        ),
-                        elevation: 5,
-                        child: Padding(
-                          padding: EdgeInsets.all(20),
-                          child: HChart(
-                            xAxis: [1, 2, 3, 4],
-                            yAxis: [[1, 5, 3, 6]],
-                            maxY: 10,
-                            // colors: [Color(0xFFd189f0)],
-                            colors: [kSecondaryColor],
-                          )
+    return Center(
+      child: Column(
+        children: [
+          Expanded(
+            // child: Row(
+            //   children: [
+            //     Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(10, 10, 5, 5),
+                    child: Card(
+                      color: kPrimaryColor,
+                      child: Padding(
+                        padding: EdgeInsets.all(0),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.all(15),
+                              child: SpeedWidget()
+                            )
+                          ]
                         )
-                      )
-                    )
-                  ),
-                ],
-              )
-            ),
-            Expanded(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Card(
-                        color: kFadedColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(7.5))
-                        ),
-                        elevation: 5,
-                        child: Container()
-                      )
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Card(
-                        color: kFadedColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(7.5))
-                        ),
-                        elevation: 5,
-                        child: Container()
-                      )
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Card(
-                        color: kFadedColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(7.5))
-                        ),
-                        elevation: 5,
-                        child: Container()
                       )
                     ),
                   )
-                ]
-              )
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(5, 10, 10, 5),
+                    child: Card(
+                      color: kPrimaryColor,
+                      child: Padding(
+                        padding: EdgeInsets.all(0),
+                        child: Column(
+                          children: [
+
+                          ]
+                        )
+                      )
+                    ),
+                  // )
+                // )
+              // ]
             ),
-          ]
-        )
+          ),
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(10, 5, 5, 10),
+                    child: Card(
+                      color: kPrimaryColor,
+                      child: Padding(
+                        padding: EdgeInsets.all(0),
+                        child: Column(
+                          children: [
+
+                          ]
+                        )
+                      )
+                    ),
+                  )
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(5, 5, 10, 10),
+                    child: Card(
+                      color: kPrimaryColor,
+                      child: Padding(
+                        padding: EdgeInsets.all(0),
+                        child: Column(
+                          children: [
+
+                          ]
+                        )
+                      )
+                    ),
+                  )
+                )
+              ]
+            ),
+          ),
+        ]
+      )
+    );
+  }
+}
+
+class Test extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        children: [
+          Expanded(
+            child: Container()
+          ),
+          Expanded(
+            child: Card(
+                color: kPrimaryColor,
+                child: Padding(
+                    padding: EdgeInsets.all(20),
+                    child: NetworkButton()
+                )
+            ),
+          ),
+          Expanded(
+            child: Container()
+          ),
+        ],
       )
     );
   }
