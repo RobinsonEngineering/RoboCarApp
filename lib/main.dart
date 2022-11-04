@@ -1,33 +1,43 @@
-import 'package:characterization/server/network_button.dart';
-import 'package:characterization/server/speed_widget.dart';
+import 'dart:io';
+
+import 'package:characterization/is_running.dart';
+import 'package:characterization/table.dart';
 import 'package:flutter/material.dart';
-import 'package:characterization/constants.dart';
+
+import 'constants.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(          // MODIFY with const
+    return MaterialApp(
       title: 'Characterization',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         canvasColor: kBackgroundColor,
-        drawerTheme: const DrawerThemeData(
+        drawerTheme: DrawerThemeData(
           backgroundColor: kPrimaryColor,
         ),
         appBarTheme: AppBarTheme(
           backgroundColor: kPrimaryColor
         )
       ),
-      // home: Main(),
       home: Scaffold(
         appBar: AppBar(
+          actions: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 0, 30, 0),
+              child: Center(
+                child: IsRunning()
+              )
+            )
+          ],
           title: Center(
             child: Text(
               "ROBO CAR",
@@ -39,9 +49,8 @@ class MyApp extends StatelessWidget {
             ),
           )
         ),
-        body:
-          // Main()
-          Test()
+        drawer: Drawer(),
+        body: Main()
       )
     );
   }
@@ -50,117 +59,13 @@ class MyApp extends StatelessWidget {
 class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          Expanded(
-            // child: Row(
-            //   children: [
-            //     Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(10, 10, 5, 5),
-                    child: Card(
-                      color: kPrimaryColor,
-                      child: Padding(
-                        padding: EdgeInsets.all(0),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.all(15),
-                              child: SpeedWidget()
-                            )
-                          ]
-                        )
-                      )
-                    ),
-                  )
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(5, 10, 10, 5),
-                    child: Card(
-                      color: kPrimaryColor,
-                      child: Padding(
-                        padding: EdgeInsets.all(0),
-                        child: Column(
-                          children: [
-
-                          ]
-                        )
-                      )
-                    ),
-                  // )
-                // )
-              // ]
-            ),
-          ),
-          Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(10, 5, 5, 10),
-                    child: Card(
-                      color: kPrimaryColor,
-                      child: Padding(
-                        padding: EdgeInsets.all(0),
-                        child: Column(
-                          children: [
-
-                          ]
-                        )
-                      )
-                    ),
-                  )
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(5, 5, 10, 10),
-                    child: Card(
-                      color: kPrimaryColor,
-                      child: Padding(
-                        padding: EdgeInsets.all(0),
-                        child: Column(
-                          children: [
-
-                          ]
-                        )
-                      )
-                    ),
-                  )
-                )
-              ]
-            ),
-          ),
-        ]
-      )
-    );
-  }
-}
-
-class Test extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          Expanded(
-            child: Container()
-          ),
-          Expanded(
-            child: Card(
-                color: kPrimaryColor,
-                child: Padding(
-                    padding: EdgeInsets.all(20),
-                    child: NetworkButton()
-                )
-            ),
-          ),
-          Expanded(
-            child: Container()
-          ),
-        ],
-      )
+    return Stack(
+      children: [
+        SushiTable(x: -0.1, y: -0.2, theta: -90, left: "04", right: "14"),
+        SushiTable(x: -0.1, y: 0.4, theta: -90, left: "03", right: "13"),
+        SushiTable(x: -0.1, y: 1.0, theta: -90, left: "02", right: "12"),
+        SushiTable(x: -0.1, y: 1.6, theta: -90, left: "01", right: "11")
+      ]
     );
   }
 }
