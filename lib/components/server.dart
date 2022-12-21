@@ -7,21 +7,6 @@ const int port = 8080;
 typedef LatestInputCallback = String Function();
 
 Future<void> main() async {
-  // final server = await HttpServer.bind(
-  //     InternetAddress("192.168.1.2"),
-  //     port
-  // );
-  //
-  // Server myServer = await Server.returnFuture(server);
-  //
-  // myServer.setInput("aaa");
-  // myServer.setupServer(server);
-  // print("pre delay");
-  // Future.delayed(const Duration(milliseconds: 25000), () {
-  //   print("test one");
-  //   myServer.setInput("bbb");
-  // });
-
   Server server = Server();
   server.setInput("test");
   Future.delayed(const Duration(milliseconds: 5000), () {

@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:characterization/constants.dart';
-import 'package:characterization/server.dart';
+import 'package:characterization/components/server.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
