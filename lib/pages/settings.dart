@@ -63,7 +63,7 @@ class Settings extends StatelessWidget {
         ),
         body: Center(
           child: Container(
-            height: 76,
+            height: 300,
             width: 200,
             child: Card(
               color: kPrimaryColor,
@@ -86,7 +86,7 @@ class StatusCard extends StatefulWidget {
 }
 
 class _StatusCardState extends State<StatusCard> {
-  String message = "test";
+  String message = "000000";
 
   Timer? timer;
 
@@ -106,18 +106,83 @@ class _StatusCardState extends State<StatusCard> {
   @override
   Widget build(BuildContext context) {
 
-    return Text(
-          message,
-          style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 24
-        ));
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.all(20),
+          child: TextField(
+            style: TextStyle(
+          color: Colors.white
+          ),
+            decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.white
+                )
+              ),
+              disabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                color: Colors.white
+                )
+              ),
+              labelText: 'Delay',
+              labelStyle: TextStyle(
+    color: Colors.white
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(10),
+          child: Text(
+              (() {if (message.substring(0, 0)  == '1') { return "Front plate: active: "; } return "Front plate: inactive";}()),
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16
+              )
+          ),
+        ),
+
+        Padding(
+        padding: EdgeInsets.all(10),
+    child:Text(
+            (() {if (message.substring(1, 1)  == '1') { return "Back plate: active: "; } return "Back plate: inactive";}()),
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 16
+            )
+        ),
+        ),
+    Padding(
+    padding: EdgeInsets.all(10),
+    child:Text(
+            (() {if (message.substring(2, 2)  == '1') { return "Front sensor: active: "; } return "Front sensor: inactive";}()),
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 16
+            )
+        ),
+    ),
+    Padding(
+    padding: EdgeInsets.all(10),
+    child:Text(
+            (() {if (message.substring(3, 3)  == '1') { return "Back sensor: active: "; } return "Back sensor: inactive";}()),
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 16
+            )
+        ),
+    ),
+      ],
+    );
   }
 
   void update(int test) {
     setState(() {
       message = Socket().getServer();
+      if (message.length == 0) {
+        message = "00000";
+      }
     });
   }
 }

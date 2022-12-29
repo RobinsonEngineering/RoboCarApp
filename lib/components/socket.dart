@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 void main() async {
   // bind the socket server to an address and port
-  // listen for clent connections to the server
+  // listen for client connections to the server
   print("alive");
   while (true) {
     await Future.delayed(Duration(seconds: 1));
