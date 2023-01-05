@@ -15,6 +15,7 @@ class Settings extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
             actions: [
               Padding(
                   padding: EdgeInsets.fromLTRB(30, 0, 100, 0),
@@ -40,10 +41,7 @@ class Settings extends StatelessWidget {
                 child: IconButton(
                     icon: Icon(Icons.settings),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Settings()),
-                      );
+
                     }
 
                 ),
@@ -179,7 +177,7 @@ class _StatusCardState extends State<StatusCard> {
 
   void update(int test) {
     setState(() {
-      message = Socket().getServer();
+      message = SSocket().getServer();
       if (message.length == 0) {
         message = "00000";
       }

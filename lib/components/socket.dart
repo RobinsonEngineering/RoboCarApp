@@ -7,27 +7,49 @@ void main() async {
   print("alive");
   while (true) {
     await Future.delayed(Duration(seconds: 1));
-      print(Socket().getServer());
+      print(SSocket().getServer());
   }
+
+  // while (true) {
+  //   try {
+  //     Socket.connect("localhost", 8080).then((socket) {
+  //       print('client connected : ${socket.remoteAddress.address}:${socket.remotePort}');
+  //
+  //       socket.listen((data) {
+  //         print("client listen  : ${String.fromCharCodes(data).trim()}");
+  //       }, onDone: () {
+  //         print("client done");
+  //         socket.destroy();
+  //       });
+  //
+  //       socket.write("bob");
+  //     });
+  //   } catch (e) {
+  //
+  //   }
+  // }
+
+  print("dead");
 }
 
-class Socket {
-  static final Socket _singleton = Socket._internal();
+class SSocket {
+  static final SSocket _singleton = SSocket._internal();
   static String message = "";
+  static String send = "";
 
-  Socket._internal() {
+  SSocket._internal() {
     setupServer();
   }
 
-  factory Socket() {
+  factory SSocket() {
     return _singleton;
   }
 
-  ServerSocket? server;
+  ServerSocket? socket;
   String input = "initial";
 
   void setupServer() async {
-    server = await ServerSocket.bind(InternetAddress.anyIPv4, 8080);
+    socket = await ServerSocket.bind(InternetAddress.anyIPv4, 8080);
   //
   //   await for (HttpRequest request in server!) {
   //     request.response.headers.set('Server', serverName);
@@ -35,22 +57,28 @@ class Socket {
   //
   //     await request.response.close();
   //   }
-    server!.listen((client) {
-      client.listen((var data) async {
+    socket!.listen((Socket socket) {
+      socket.writeln("testing");
+
+      socket.listen((var data) async {
         message = String.fromCharCodes(data);
+        socket.write("test");
+        socket.add({0}.toList());
+        socket.close();
         print(message);
       },
+
 
         // handle errors
         onError: (error) {
           print(error);
-          client.close();
+          socket.close();
         },
 
         // handle the client closing the connection
         onDone: () {
           print('Client left');
-          client.close();
+          socket.close();
         },
       );
     });
@@ -61,6 +89,7 @@ class Socket {
   }
 
   void setInput(String input) {
+    // socket!.
     this.input = input;
   }
 }

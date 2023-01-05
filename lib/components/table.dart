@@ -51,9 +51,10 @@ class _SushiTableState extends State<SushiTable> {
       widgets[index] = (Align(
           alignment: Alignment(xs![index], ys![index]),
           child: Container(
-              height: 175,
-              transform: new Matrix4.identity()..rotateZ(thetas![index] * pi / 180),
-              child: Column(
+              height: 125,
+              width: 250,
+              // transform: new Matrix4.identity()..rotateZ(thetas![index] * pi / 180),
+              child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     MaterialButton(
@@ -68,11 +69,32 @@ class _SushiTableState extends State<SushiTable> {
                       ),
                     ),
                     Container(
-                        width: 100,
-                        height: 100,
+                        width: 75,
+                        height: 75,
                         // transform: new Matrix4.identity()..rotateZ(theta!),
                         child: Card(
                           color: kPrimaryColor,
+                          child: Center(
+                            child: TextFormField(
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+
+                              decoration: InputDecoration(
+                                enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: kPrimaryColor
+                                    )
+                                ),
+                                disabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.white
+                                    )
+                                ),
+                              ),
+                            )
+                          )
                         ),
                         decoration: BoxDecoration(
                           border: boxSelected(selection, index),
