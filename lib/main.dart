@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: kPrimaryColor
         )
       ),
-      home: Settings()
+      home: Home()
     );
   }
 }

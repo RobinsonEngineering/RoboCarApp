@@ -50,7 +50,7 @@ class Settings extends StatelessWidget {
             ],
             title: Center(
               child: Text(
-                  "ROBO CAR",
+                  "Battery: 96%",
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -61,8 +61,8 @@ class Settings extends StatelessWidget {
         ),
         body: Center(
           child: Container(
-            height: 300,
-            width: 200,
+            height: 375,
+            width: 225,
             child: Card(
               color: kPrimaryColor,
               shape: RoundedRectangleBorder(
@@ -171,16 +171,51 @@ class _StatusCardState extends State<StatusCard> {
             )
         ),
     ),
+        Padding(
+          padding: EdgeInsets.all(10),
+          child:Text(
+              (() {if (message.substring(3, 3)  == '1') { return "Magnet sensor: active: "; } return "Magnet sensor: inactive";}()),
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16
+              )
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(10),
+          child: Container(
+            width: 100,
+            height: 40,
+    child: TextButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+              foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+              overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                    (Set<MaterialState> states) {
+                  if (states.contains(MaterialState.hovered))
+                    return Colors.lightBlue.withOpacity(0.04);
+                  if (states.contains(MaterialState.focused) ||
+                      states.contains(MaterialState.pressed))
+                    return Colors.lightBlue.withOpacity(0.12);
+                  return null; // Defer to the widget's default.
+                },
+              ),
+            ),
+            child: Text(style: TextStyle(color: kPrimaryColor),"Exercise"),
+            onPressed: () {},
+          )
+        )
+        )
       ],
     );
   }
 
   void update(int test) {
     setState(() {
-      message = SSocket().getServer();
-      if (message.length == 0) {
-        message = "00000";
-      }
+      // message = SSocket().getServer();
+      // if (message.length == 0) {
+      //   message = "00000";
+      // }
     });
   }
 }

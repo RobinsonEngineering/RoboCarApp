@@ -10,6 +10,17 @@ import '../components/table.dart';
 class Home extends StatelessWidget {
   String password = "";
 
+  double start = -0.95;
+  double spacing = 0.27;
+
+  List<double> initTables() {
+    List<double> tableY = List.filled(8, 1.0);
+    for (int i = 0; i < tableY.length; ++i) {
+      tableY[i] = start + spacing * i;
+    }
+    return tableY;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,7 +99,7 @@ class Home extends StatelessWidget {
           ],
           title: Center(
             child: Text(
-                "ROBO CAR",
+                "Battery: 96%",
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -98,11 +109,11 @@ class Home extends StatelessWidget {
           )
       ),
       body: SushiTable(
-        xs: [-0.1, -0.1, -0.1, -0.1, -0.1, -0.1],
-        ys: [-0.9, -0.55, -0.2, 0.15, 0.5, 0.85],
-        thetas: [0.0, 0.0 ,0.0, 0.0, 0.0, 0.0],
-        lefts: ["06", "05", "04","03","02","01"],
-        rights: ["16", "15", "14","13","12","11"],
+        xs: [-0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1],
+        ys: initTables(),
+        thetas: [0.0, 0.0 ,0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        lefts: ["08","07", "06", "05", "04","03","02","01"],
+        rights: ["18","17", "16", "15", "14","13","12","11"],
       )
     );
   }

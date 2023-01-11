@@ -1,6 +1,7 @@
 import 'dart:core';
 import 'dart:io';
 import 'dart:math';
+import 'package:characterization/components/socket.dart';
 import 'package:characterization/constants.dart';
 import 'package:characterization/components/server.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,7 +29,6 @@ class _SushiTableState extends State<SushiTable> {
   List? thetas;
   List? lefts;
   List? rights;
-  Server myServer = Server();
 
   int value = 2;
 
@@ -51,7 +51,7 @@ class _SushiTableState extends State<SushiTable> {
       widgets[index] = (Align(
           alignment: Alignment(xs![index], ys![index]),
           child: Container(
-              height: 125,
+              height: 100,
               width: 250,
               // transform: new Matrix4.identity()..rotateZ(thetas![index] * pi / 180),
               child: Row(
@@ -59,7 +59,7 @@ class _SushiTableState extends State<SushiTable> {
                   children: [
                     MaterialButton(
                       onPressed: () {
-                        myServer.setInput(lefts![index]);
+                        SSocket().setX(lefts![index]);
                         select(index);
                       },
                       color: Colors.white,
@@ -102,7 +102,7 @@ class _SushiTableState extends State<SushiTable> {
                     ),
                     MaterialButton(
                       onPressed: () {
-                        myServer.setInput(rights![index]);
+                        SSocket().setX(rights![index]);
                         select(index);
                       },
                       color: Colors.black,

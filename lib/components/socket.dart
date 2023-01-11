@@ -1,95 +1,156 @@
+// import 'dart:io';
+// import 'dart:typed_data';
+//
+// class SSocket {
+//   static final SSocket _singleton = SSocket._internal();
+//   static String message = "";
+//   static String send = "";
+//
+//   SSocket._internal() {
+//     setupServer();
+//   }
+//
+//   factory SSocket() {
+//     return _singleton;
+//   }
+//
+//   String input = "initial";
+//
+//   void setupServer() async {
+//     // connect to the socket server
+//     final socket = await Socket.connect('172.20.10.3', 8080);
+//     print('Connected to: ${socket.remoteAddress.address}:${socket.remotePort}');
+//
+//       socket.listen(
+//
+//     // handle data from the server
+//         (Uint8List data) {
+//       final serverResponse = String.fromCharCodes(data);
+//       print('Server: $data');
+//       socket.write("poke");
+//     },
+//
+//     // handle errors
+//     onError: (error) {
+//       print(error);
+//       socket.destroy();
+//     },
+//
+//     // handle server ending connection
+//     onDone: () {
+//       print('Server left.');
+//       socket.destroy();
+//     },
+//   );
+//
+//     // await sendMessage(socket, 'Knock, knock.');
+//     // await sendMessage(socket, 'Banana');
+// }
+//
+//   // Future<void> sendMessage(String message) async {
+//   //   if (socket != null) {
+//   //     print('Client: $message');
+//   //     socket!.write(message);
+//   //     await Future.delayed(Duration(seconds: 2));
+//   //   }
+//   // }
+//
+//   // Socket getSocket() {
+//   //   return socket!;
+//   // }
+//
+//   String getServer() {
+//     return message;
+//   }
+//
+//   void setInput(String input) {
+//     // socket!.
+//     // this.input = input;
+//     // if (socket != null) {
+//     //   socket!.write(input);
+//     // }
+//   }
+// }
+//
+// void main() async {
+//   SSocket();
+//   await Future.delayed(Duration(seconds: 5));
+//   sendMessage();
+//   // await Future.delayed(Duration(seconds: 5));
+//   // sendMessage();
+//   // SSocket().sendMessage("tf");
+//   // await Future.delayed(Duration(seconds: 5));
+//   // sendMessage();
+//   // SSocket().sendMessage("fdsafds");
+//   // await Future.delayed(Duration(seconds: 5));
+//   // sendMessage();
+//   // SSocket().sendMessage("wwww");
+// }
+//
+// Future<void> sendMessage() async {
+//   print("wtf");
+//   // SSocket().setInput("freetos");
+//   await Future.delayed(Duration(seconds: 2));
+// }
+
 import 'dart:io';
 import 'dart:typed_data';
 
-void main() async {
-  // bind the socket server to an address and port
-  // listen for client connections to the server
-  print("alive");
-  while (true) {
-    await Future.delayed(Duration(seconds: 1));
-      print(SSocket().getServer());
-  }
-
-  // while (true) {
-  //   try {
-  //     Socket.connect("localhost", 8080).then((socket) {
-  //       print('client connected : ${socket.remoteAddress.address}:${socket.remotePort}');
-  //
-  //       socket.listen((data) {
-  //         print("client listen  : ${String.fromCharCodes(data).trim()}");
-  //       }, onDone: () {
-  //         print("client done");
-  //         socket.destroy();
-  //       });
-  //
-  //       socket.write("bob");
-  //     });
-  //   } catch (e) {
-  //
-  //   }
-  // }
-
-  print("dead");
-}
-
 class SSocket {
   static final SSocket _singleton = SSocket._internal();
-  static String message = "";
-  static String send = "";
+
+  String x = "       ";
 
   SSocket._internal() {
-    setupServer();
+    setup();
   }
 
   factory SSocket() {
     return _singleton;
   }
 
-  ServerSocket? socket;
-  String input = "initial";
+  void setup() async {
+    // connect to the socket server
+    final socket = await Socket.connect('172.20.10.3', 8080);
+    print('Connected to: ${socket.remoteAddress.address}:${socket.remotePort}');
 
-  void setupServer() async {
-    socket = await ServerSocket.bind(InternetAddress.anyIPv4, 8080);
-  //
-  //   await for (HttpRequest request in server!) {
-  //     request.response.headers.set('Server', serverName);
-  //     request.response.write(input);
-  //
-  //     await request.response.close();
-  //   }
-    socket!.listen((Socket socket) {
-      socket.writeln("testing");
+    // listen for responses from the server
+    socket.listen(
 
-      socket.listen((var data) async {
-        message = String.fromCharCodes(data);
-        socket.write("test");
-        socket.add({0}.toList());
-        socket.close();
-        print(message);
+      // handle data from the server
+          (Uint8List data) {
+        final serverResponse = String.fromCharCodes(data);
+        print('Server: $serverResponse');
+        socket.write(x);
       },
 
+      // handle errors
+      onError: (error) {
+        print(error);
+        socket.destroy();
+      },
 
-        // handle errors
-        onError: (error) {
-          print(error);
-          socket.close();
-        },
-
-        // handle the client closing the connection
-        onDone: () {
-          print('Client left');
-          socket.close();
-        },
-      );
-    });
+      // handle server ending connection
+      onDone: () {
+        print('Server left.');
+        socket.destroy();
+      },
+    );
   }
 
-  String getServer() {
-    return message;
+  void setX(String newX) {
+    x = newX;
   }
+}
 
-  void setInput(String input) {
-    // socket!.
-    this.input = input;
+void main() async {
+  for (double i = 0; i < 100000; ++i) {
+    SSocket().setX(i.toString());
+    await Future.delayed(Duration(milliseconds: 1000));
   }
+}
+
+Future<void> sendMessage(Socket socket, String message) async {
+  socket.write(message);
+  await Future.delayed(Duration(seconds: 2));
 }
