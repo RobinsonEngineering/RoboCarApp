@@ -52,7 +52,7 @@ class _SushiTableState extends State<SushiTable> {
           alignment: Alignment(xs![index], ys![index]),
           child: Container(
               height: 100,
-              width: 250,
+              width: 275,
               // transform: new Matrix4.identity()..rotateZ(thetas![index] * pi / 180),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -60,6 +60,7 @@ class _SushiTableState extends State<SushiTable> {
                     MaterialButton(
                       onPressed: () {
                         SSocket().setX(lefts![index]);
+                        print("table: " + lefts![index]);
                         select(index);
                       },
                       color: Colors.white,
@@ -103,6 +104,7 @@ class _SushiTableState extends State<SushiTable> {
                     MaterialButton(
                       onPressed: () {
                         SSocket().setX(rights![index]);
+                        print("table: " + rights![index]);
                         select(index);
                       },
                       color: Colors.black,

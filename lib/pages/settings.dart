@@ -84,7 +84,7 @@ class StatusCard extends StatefulWidget {
 }
 
 class _StatusCardState extends State<StatusCard> {
-  String message = "000000";
+  String message = "000000000000";
 
   Timer? timer;
 
@@ -128,12 +128,15 @@ class _StatusCardState extends State<StatusCard> {
     color: Colors.white
               ),
             ),
+            onChanged: (String s) {
+              SSocket().setDelay(s);
+            },
           ),
         ),
         Padding(
           padding: EdgeInsets.all(10),
           child: Text(
-              (() {if (message.substring(0, 0)  == '1') { return "Front plate: active: "; } return "Front plate: inactive";}()),
+              (() {if (message.substring(5, 6) == '1') { return "Front plate: active"; } else {return "Front plate: inactive";}}()),
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 16
@@ -144,7 +147,7 @@ class _StatusCardState extends State<StatusCard> {
         Padding(
         padding: EdgeInsets.all(10),
     child:Text(
-            (() {if (message.substring(1, 1)  == '1') { return "Back plate: active: "; } return "Back plate: inactive";}()),
+            (() {if (message.substring(6, 7) == '1') { return "Back plate: active"; } else {return "Back plate: inactive";}}()),
             style: TextStyle(
                 color: Colors.white,
                 fontSize: 16
@@ -154,7 +157,7 @@ class _StatusCardState extends State<StatusCard> {
     Padding(
     padding: EdgeInsets.all(10),
     child:Text(
-            (() {if (message.substring(2, 2)  == '1') { return "Front sensor: active: "; } return "Front sensor: inactive";}()),
+            (() {if (message.substring(3, 4)  == '1') { return "Front sensor: active"; } return "Front sensor: inactive";}()),
             style: TextStyle(
                 color: Colors.white,
                 fontSize: 16
@@ -164,7 +167,7 @@ class _StatusCardState extends State<StatusCard> {
     Padding(
     padding: EdgeInsets.all(10),
     child:Text(
-            (() {if (message.substring(3, 3)  == '1') { return "Back sensor: active: "; } return "Back sensor: inactive";}()),
+            (() {if (message.substring(4, 5)  == '1') { return "Back sensor: active"; } return "Back sensor: inactive";}()),
             style: TextStyle(
                 color: Colors.white,
                 fontSize: 16
@@ -174,7 +177,7 @@ class _StatusCardState extends State<StatusCard> {
         Padding(
           padding: EdgeInsets.all(10),
           child:Text(
-              (() {if (message.substring(3, 3)  == '1') { return "Magnet sensor: active: "; } return "Magnet sensor: inactive";}()),
+              (() {if (message.substring(2, 3)  == '1') { return "Magnet sensor: active"; } return "Magnet sensor: inactive";}()),
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 16
@@ -183,28 +186,62 @@ class _StatusCardState extends State<StatusCard> {
         ),
         Padding(
           padding: EdgeInsets.all(10),
-          child: Container(
-            width: 100,
-            height: 40,
-    child: TextButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-              overlayColor: MaterialStateProperty.resolveWith<Color?>(
-                    (Set<MaterialState> states) {
-                  if (states.contains(MaterialState.hovered))
-                    return Colors.lightBlue.withOpacity(0.04);
-                  if (states.contains(MaterialState.focused) ||
-                      states.contains(MaterialState.pressed))
-                    return Colors.lightBlue.withOpacity(0.12);
-                  return null; // Defer to the widget's default.
-                },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                  width: 95,
+                  height: 40,
+                  child: TextButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                      foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                      overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                            (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.hovered))
+                            return Colors.lightBlue.withOpacity(0.04);
+                          if (states.contains(MaterialState.focused) ||
+                              states.contains(MaterialState.pressed))
+                            return Colors.lightBlue.withOpacity(0.12);
+                          return null; // Defer to the widget's default.
+                        },
+                      ),
+                    ),
+                    child: Text(style: TextStyle(color: kPrimaryColor),"Exercise On"),
+                    onPressed: () {
+                      SSocket().setX("00");
+                    },
+                  )
               ),
-            ),
-            child: Text(style: TextStyle(color: kPrimaryColor),"Exercise"),
-            onPressed: () {},
+              Container(
+                  width: 95,
+                  height: 40,
+                  child: TextButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                      foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                      overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                            (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.hovered))
+                            return Colors.lightBlue.withOpacity(0.04);
+                          if (states.contains(MaterialState.focused) ||
+                              states.contains(MaterialState.pressed))
+                            return Colors.lightBlue.withOpacity(0.12);
+                          return null; // Defer to the widget's default.
+                        },
+                      ),
+                    ),
+                    child: Text(style: TextStyle(color: kPrimaryColor),"Exercise Off"),
+                    onPressed: () {
+                      SSocket().setX("99");
+                    },
+                  )
+              )
+            ],
           )
-        )
+
+
+
         )
       ],
     );
@@ -212,10 +249,12 @@ class _StatusCardState extends State<StatusCard> {
 
   void update(int test) {
     setState(() {
-      // message = SSocket().getServer();
-      // if (message.length == 0) {
-      //   message = "00000";
-      // }
+      String code = SSocket().getArduinoCode();
+      if (code.length > 6) {
+        print("arduino code: " + message);
+        message = code;
+      }
+
     });
   }
 }
