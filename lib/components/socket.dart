@@ -125,9 +125,10 @@ class SSocket {
       },
 
       // handle errors
-      onError: (error) {
+      onError: (error) async {
         print(error);
-        socket.destroy();
+        await Future.delayed(Duration(milliseconds: 1000));
+        setup();
       },
 
       // handle server ending connection
