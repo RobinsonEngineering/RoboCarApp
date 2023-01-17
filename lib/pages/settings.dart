@@ -209,7 +209,7 @@ class _StatusCardState extends State<StatusCard> {
                     ),
                     child: Text(style: TextStyle(color: kPrimaryColor),"Exercise On"),
                     onPressed: () {
-                      SSocket().setX("00");
+                      SSocket().setX("99");
                     },
                   )
               ),
@@ -233,7 +233,7 @@ class _StatusCardState extends State<StatusCard> {
                     ),
                     child: Text(style: TextStyle(color: kPrimaryColor),"Exercise Off"),
                     onPressed: () {
-                      SSocket().setX("99");
+                      SSocket().setX("00");
                     },
                   )
               )

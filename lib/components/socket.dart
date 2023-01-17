@@ -113,7 +113,7 @@ class SSocket {
 
   void setup() async {
     // connect to the socket server
-    final socket = await Socket.connect('192.168.1.54', 8080);
+    final socket = await Socket.connect('192.168.1.138', 8080);
     print('Connected to: ${socket.remoteAddress.address}:${socket.remotePort}');
 
     // listen for responses from the server
