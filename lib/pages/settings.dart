@@ -5,7 +5,7 @@ import 'dart:async';
 import 'package:characterization/constants.dart';
 import 'package:flutter/material.dart';
 
-import '../components/is_running.dart';
+import '../components/appbar.dart';
 import '../components/socket.dart';
 import '../components/table.dart';
 import 'home.dart';
@@ -14,51 +14,7 @@ class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-            actions: [
-              Padding(
-                  padding: EdgeInsets.fromLTRB(30, 0, 100, 0),
-                  child: Center(
-                      child: IsRunning()
-                  )
-              ),
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: IconButton(
-                    icon: Icon(Icons.home),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Home()),
-                      );
-                    }
-
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: IconButton(
-                    icon: Icon(Icons.settings),
-                    onPressed: () {
-
-                    }
-
-                ),
-              ),
-
-            ],
-            title: Center(
-              child: Text(
-                  "Battery: 96%",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 22
-                  )
-              ),
-            )
-        ),
+        appBar: Appbar(),
         body: Center(
           child: Container(
             height: 375,
@@ -191,7 +147,7 @@ class _StatusCardState extends State<StatusCard> {
             children: [
               Container(
                   width: 95,
-                  height: 40,
+                  height: 45,
                   child: TextButton(
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
@@ -207,7 +163,7 @@ class _StatusCardState extends State<StatusCard> {
                         },
                       ),
                     ),
-                    child: Text(style: TextStyle(color: kPrimaryColor),"Exercise On"),
+                    child: Text(style: TextStyle(color: kPrimaryColor),"Dry Cycle On"),
                     onPressed: () {
                       SSocket().setX("99");
                     },
@@ -215,7 +171,7 @@ class _StatusCardState extends State<StatusCard> {
               ),
               Container(
                   width: 95,
-                  height: 40,
+                  height: 45,
                   child: TextButton(
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
@@ -231,7 +187,7 @@ class _StatusCardState extends State<StatusCard> {
                         },
                       ),
                     ),
-                    child: Text(style: TextStyle(color: kPrimaryColor),"Exercise Off"),
+                    child: Text(style: TextStyle(color: kPrimaryColor),"Dry Cycle Off"),
                     onPressed: () {
                       SSocket().setX("00");
                     },
@@ -250,7 +206,7 @@ class _StatusCardState extends State<StatusCard> {
   void update(int test) {
     setState(() {
       String code = SSocket().getArduinoCode();
-      if (code.length > 6) {
+      if (code.length > 6 && !code.contains("test")) {
         print("arduino code: " + message);
         message = code;
       }

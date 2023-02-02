@@ -45,7 +45,7 @@ class _SushiTableState extends State<SushiTable> {
         width: 3
     ) : BorderSide(width: 0, color: kBackgroundColor));
 
-    List<Widget> widgets = List.filled(xs!.length, Center());
+    List<Widget> widgets = List.filled(xs!.length + 1, Center());
     print(selection);
     for (int index = 0; index < this.xs!.length; ++index) {
       widgets[index] = (Align(
@@ -94,6 +94,8 @@ class _SushiTableState extends State<SushiTable> {
                                     )
                                 ),
                               ),
+                              onChanged: (String str) {
+                              },
                             )
                           )
                         ),
@@ -118,6 +120,33 @@ class _SushiTableState extends State<SushiTable> {
           )
       ));
     }
+    widgets[this.xs!.length] = Align(
+      alignment: Alignment(-0.9, -0.9),
+      child: Container(
+            width: 95,
+            height: 40,
+            child: TextButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                      (Set<MaterialState> states) {
+                    if (states.contains(MaterialState.hovered))
+                      return Colors.lightBlue.withOpacity(0.04);
+                    if (states.contains(MaterialState.focused) ||
+                        states.contains(MaterialState.pressed))
+                      return Colors.lightBlue.withOpacity(0.12);
+                    return null; // Defer to the widget's default.
+                  },
+                ),
+              ),
+              child: Text(style: TextStyle(color: kPrimaryColor),"Return"),
+              onPressed: () {
+                SSocket().setX("88");
+              },
+            )
+        ),
+    );
 
     return Stack(
       children: widgets

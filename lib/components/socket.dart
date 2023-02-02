@@ -100,7 +100,7 @@ class SSocket {
   static final SSocket _singleton = SSocket._internal();
 
   String x = "00";
-  String delay = "000";
+  String delay = "010";
   String recievedMessage = "x";
 
   SSocket._internal() {
@@ -113,7 +113,7 @@ class SSocket {
 
   void setup() async {
     // connect to the socket server
-    final socket = await Socket.connect('192.168.1.138', 8080);
+    final socket = await Socket.connect('192.168.1.65', 8080);
     print('Connected to: ${socket.remoteAddress.address}:${socket.remotePort}');
 
     // listen for responses from the server
@@ -128,15 +128,17 @@ class SSocket {
       },
 
       // handle errors
-      onError: (error) {
+      onError: (error) async {
         print(error);
-        socket.destroy();
+        await Future.delayed(Duration(milliseconds: 10000));
+        setup();
       },
 
       // handle server ending connection
-      onDone: () {
+      onDone: () async {
         print('Server left.');
-        socket.destroy();
+        await Future.delayed(Duration(milliseconds: 10000));
+        setup();
       },
     );
 
