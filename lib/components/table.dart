@@ -2,6 +2,7 @@ import 'dart:core';
 import 'dart:io';
 import 'dart:math';
 import 'package:characterization/components/socket.dart';
+import 'package:characterization/components/table_manager.dart';
 import 'package:characterization/constants.dart';
 import 'package:characterization/components/server.dart';
 import 'package:flutter/cupertino.dart';
@@ -46,7 +47,7 @@ class _SushiTableState extends State<SushiTable> {
         width: 3
     ) : BorderSide(width: 0, color: kBackgroundColor));
 
-    List<Widget> widgets = List.filled(xs!.length + 2, Center());
+    List<Widget> widgets = List.filled(xs!.length + 3, Center());
     print(selection);
     for (int index = 0; index < this.xs!.length; ++index) {
       widgets[index] = (Align(
@@ -77,26 +78,11 @@ class _SushiTableState extends State<SushiTable> {
                         child: Card(
                           color: kPrimaryColor,
                           child: Center(
-                            child: TextFormField(
-                              textAlign: TextAlign.center,
+                            child: Text(
+                              TableManager().getName(index),
                               style: TextStyle(
-                                color: Colors.white,
-                              ),
-
-                              decoration: InputDecoration(
-                                enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: kPrimaryColor
-                                    )
-                                ),
-                                disabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.white
-                                    )
-                                ),
-                              ),
-                              onChanged: (String str) {
-                              },
+                                color: Colors.white
+                              )
                             )
                           )
                         ),
@@ -121,39 +107,50 @@ class _SushiTableState extends State<SushiTable> {
           )
       ));
     }
-    widgets[this.xs!.length] = Align(
-      alignment: Alignment(-0.9, -0.9),
-      child: Container(
-            width: 95,
-            height: 40,
-            child: TextButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-                overlayColor: MaterialStateProperty.resolveWith<Color?>(
-                      (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.hovered))
-                      return Colors.lightBlue.withOpacity(0.04);
-                    if (states.contains(MaterialState.focused) ||
-                        states.contains(MaterialState.pressed))
-                      return Colors.lightBlue.withOpacity(0.12);
-                    return null; // Defer to the widget's default.
-                  },
-                ),
-              ),
-              child: Text(style: TextStyle(color: kPrimaryColor),"Return"),
-              onPressed: () {
-                SSocket().setX("88");
-              },
-            )
-        ),
-    );
-    widgets[xs!.length + 1] = Align(
+
+    widgets[xs!.length] = Align(
       alignment: Alignment(0, 1),
       child: Container(
         width: 10000,
         height: 100,
-        color: Colors.white,
+        color: kPrimaryColor,
+      ),
+    );
+    widgets[xs!.length + 2] = Align(
+      alignment: Alignment(0, 0.79),
+      child: Text(
+        "Kitchen",
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 24
+        ),
+      )
+    );
+    widgets[this.xs!.length + 1] = Align(
+      alignment: Alignment(0, 0.95),
+      child: Container(
+          width: 95,
+          height: 40,
+          child: TextButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+              foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+              overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                    (Set<MaterialState> states) {
+                  if (states.contains(MaterialState.hovered))
+                    return Colors.lightBlue.withOpacity(0.04);
+                  if (states.contains(MaterialState.focused) ||
+                      states.contains(MaterialState.pressed))
+                    return Colors.lightBlue.withOpacity(0.12);
+                  return null; // Defer to the widget's default.
+                },
+              ),
+            ),
+            child: Text(style: TextStyle(color: kPrimaryColor),"Return"),
+            onPressed: () {
+              SSocket().setX("88");
+            },
+          )
       ),
     );
 

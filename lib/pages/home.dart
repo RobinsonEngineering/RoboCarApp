@@ -26,7 +26,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: Appbar(),
       body: SushiTable(
-            xs: [-0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1],
+            xs: [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0],
             ys: initTables(),
             thetas: [0.0, 0.0 ,0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
             lefts: ["08","07", "06", "05", "04","03","02","01"],

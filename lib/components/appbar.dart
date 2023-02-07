@@ -80,14 +80,9 @@ class _AppbarState extends State<Appbar> {
                                       fontSize: 22
                                   )
                               ),
-                              Icon(
-                                Icons.check,
-                                color: Colors.green,
-                                size: 28,
-                              )
                             ]
                         );
-                      } else {
+                      } else if (int.parse(message.substring(1, 2)) == 0){
                         return Row(
                             children: [
                               Text(
@@ -97,14 +92,21 @@ class _AppbarState extends State<Appbar> {
                                       fontSize: 22
                                   )
                               ),
-                              Icon(
-                                Icons.close,
-                                color: Colors.red,
-                                size: 28,
-                              )
                             ]
                         );
-                      };
+                      } else {
+                        return Row(
+                            children: [
+                              Text(
+                                  "Faulted",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 22
+                                  )
+                              ),
+                            ]
+                        );
+                      }
                     })()
                 )
             ),
@@ -173,7 +175,13 @@ class _AppbarState extends State<Appbar> {
           ],
           title: Center(
             child: Text(
-                (() { return "Battery: " + battery.toString() + "%"; })(),
+                (() {
+                  if (battery > 70) {
+                    return "Battery: " + battery.toString() + "%";
+                  } else {
+                    return "Charge";
+                  }
+                })(),
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
