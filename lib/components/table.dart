@@ -31,13 +31,24 @@ class _SushiTableState extends State<SushiTable> {
   List? lefts;
   List? rights;
 
+  List<String> names = List.filled(8, "");
+
+
+
   int value = 2;
 
   int selection = 0;
   String circleSelection = "";
 
+  void ResetNames() {
+    for (int index = 0; index < 8; ++index) {
+      names[index] = TableManager().getName(index);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    ResetNames();
     Border boxSelected(int s, int i) => (s == i ? Border.all(
         color: Colors.orangeAccent,
         width: 3
@@ -112,7 +123,7 @@ class _SushiTableState extends State<SushiTable> {
       alignment: Alignment(0, 1),
       child: Container(
         width: 10000,
-        height: 100,
+        height: 140,
         color: kPrimaryColor,
       ),
     );
@@ -163,6 +174,7 @@ class _SushiTableState extends State<SushiTable> {
     setState(() {
       circleSelection = circle;
       selection = index;
+      ResetNames();
     });
   }
 }
