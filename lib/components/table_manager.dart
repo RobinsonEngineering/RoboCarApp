@@ -5,6 +5,7 @@ class TableManager {
 
   List<String> names = List.filled(8, "");
   SharedPreferences? prefs;
+  int numberOfTables = 7;
 
   TableManager._internal() {
     setup();
@@ -30,5 +31,9 @@ class TableManager {
     if (prefs != null) {
       prefs!.setString(index.toString(), str);
     }
+  }
+
+  int GetNumberTables() {
+    return numberOfTables;
   }
 }

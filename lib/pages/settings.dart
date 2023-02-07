@@ -31,7 +31,7 @@ class Settings extends StatelessWidget {
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: (() {
-                        List<Widget> widgets = List.filled(8, Center());
+                        List<Widget> widgets = List.filled(TableManager().GetNumberTables(), Center());
                         for (int index = 0; index < widgets.length; ++index) {
                           widgets[index] = Container(
                               height: 60,
