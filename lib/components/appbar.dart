@@ -144,9 +144,11 @@ class _AppbarState extends State<Appbar> {
                               ),
                             ),
                             actions: <Widget>[
-                              FlatButton(
-                                color: kPrimaryColor,
-                                textColor: Colors.white,
+                              TextButton(
+                                style: ButtonStyle(
+                                  foregroundColor: MaterialStateProperty.all<Color>(kPrimaryColor),
+                                  textStyle: MaterialStateProperty.all<TextStyle>(TextStyle(color: Colors.white)),
+                                ),
                                 child: Text('OK'),
                                 onPressed: () {
                                   if (password == "admin") {

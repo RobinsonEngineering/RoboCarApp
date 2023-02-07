@@ -46,7 +46,7 @@ class _SushiTableState extends State<SushiTable> {
         width: 3
     ) : BorderSide(width: 0, color: kBackgroundColor));
 
-    List<Widget> widgets = List.filled(xs!.length + 1, Center());
+    List<Widget> widgets = List.filled(xs!.length + 2, Center());
     print(selection);
     for (int index = 0; index < this.xs!.length; ++index) {
       widgets[index] = (Align(
@@ -147,6 +147,7 @@ class _SushiTableState extends State<SushiTable> {
               },
             )
         ),
+    );
     widgets[xs!.length + 1] = Align(
       alignment: Alignment(0, 1),
       child: Container(
