@@ -53,7 +53,7 @@ class _SushiTableState extends State<SushiTable> {
           alignment: Alignment(xs![index], ys![index]),
           child: Container(
               height: 100,
-              width: 250,
+              width: 275,
               // transform: new Matrix4.identity()..rotateZ(thetas![index] * pi / 180),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -61,6 +61,7 @@ class _SushiTableState extends State<SushiTable> {
                     MaterialButton(
                       onPressed: () {
                         SSocket().setX(lefts![index]);
+                        print("table: " + lefts![index]);
                         select(index, lefts![index]);
                       },
                       color: Colors.white,
@@ -94,6 +95,8 @@ class _SushiTableState extends State<SushiTable> {
                                     )
                                 ),
                               ),
+                              onChanged: (String str) {
+                              },
                             )
                           )
                         ),
@@ -104,6 +107,7 @@ class _SushiTableState extends State<SushiTable> {
                     MaterialButton(
                       onPressed: () {
                         SSocket().setX(rights![index]);
+                        print("table: " + rights![index]);
                         select(index, rights![index]);
                       },
                       color: Colors.black,
@@ -117,7 +121,33 @@ class _SushiTableState extends State<SushiTable> {
           )
       ));
     }
-    widgets[xs!.length] = Align(
+    widgets[this.xs!.length] = Align(
+      alignment: Alignment(-0.9, -0.9),
+      child: Container(
+            width: 95,
+            height: 40,
+            child: TextButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                      (Set<MaterialState> states) {
+                    if (states.contains(MaterialState.hovered))
+                      return Colors.lightBlue.withOpacity(0.04);
+                    if (states.contains(MaterialState.focused) ||
+                        states.contains(MaterialState.pressed))
+                      return Colors.lightBlue.withOpacity(0.12);
+                    return null; // Defer to the widget's default.
+                  },
+                ),
+              ),
+              child: Text(style: TextStyle(color: kPrimaryColor),"Return"),
+              onPressed: () {
+                SSocket().setX("88");
+              },
+            )
+        ),
+    widgets[xs!.length + 1] = Align(
       alignment: Alignment(0, 1),
       child: Container(
         width: 10000,

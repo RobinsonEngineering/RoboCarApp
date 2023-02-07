@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:characterization/components/is_running.dart';
 import 'package:characterization/components/table.dart';
 import 'package:characterization/pages/home.dart';
 import 'package:characterization/pages/settings.dart';

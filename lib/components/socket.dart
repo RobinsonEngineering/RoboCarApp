@@ -99,7 +99,9 @@ import 'dart:typed_data';
 class SSocket {
   static final SSocket _singleton = SSocket._internal();
 
-  String x = "       ";
+  String x = "00";
+  String delay = "010";
+  String recievedMessage = "x";
 
   SSocket._internal() {
     setup();
@@ -111,7 +113,7 @@ class SSocket {
 
   void setup() async {
     // connect to the socket server
-    final socket = await Socket.connect('172.20.10.3', 8080);
+    final socket = await Socket.connect('192.168.1.65', 8080);
     print('Connected to: ${socket.remoteAddress.address}:${socket.remotePort}');
 
     // listen for responses from the server
@@ -120,27 +122,41 @@ class SSocket {
       // handle data from the server
           (Uint8List data) {
         final serverResponse = String.fromCharCodes(data);
+        recievedMessage = serverResponse;
         print('Server: $serverResponse');
-        socket.write(x);
+        socket.write(x + delay);
       },
 
       // handle errors
       onError: (error) async {
         print(error);
-        await Future.delayed(Duration(milliseconds: 1000));
+        await Future.delayed(Duration(milliseconds: 10000));
         setup();
       },
 
       // handle server ending connection
-      onDone: () {
+      onDone: () async {
         print('Server left.');
-        socket.destroy();
+        await Future.delayed(Duration(milliseconds: 10000));
+        setup();
       },
     );
+
+    // while (true) {
+    //   socket.write(x);
+    // }
   }
 
   void setX(String newX) {
     x = newX;
+  }
+
+  void setDelay(String newDelay) {
+    delay = newDelay;
+  }
+
+  String getArduinoCode() {
+    return recievedMessage;
   }
 }
 
