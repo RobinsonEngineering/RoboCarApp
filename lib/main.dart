@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Characterization',
+      title: 'RoboCar',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         canvasColor: kBackgroundColor,

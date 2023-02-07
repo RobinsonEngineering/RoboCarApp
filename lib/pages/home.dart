@@ -11,7 +11,7 @@ class Home extends StatelessWidget {
   String password = "";
 
   double start = -0.95;
-  double spacing = 0.27;
+  double spacing = 0.22;
 
   List<double> initTables() {
     List<double> tableY = List.filled(8, 1.0);
@@ -72,9 +72,11 @@ class Home extends StatelessWidget {
                                   ),
                                 ),
                                 actions: <Widget>[
-                                  FlatButton(
-                                    color: kPrimaryColor,
-                                    textColor: Colors.white,
+                                  TextButton(
+                                    style: ButtonStyle(
+                                      foregroundColor: MaterialStateProperty.all<Color>(kPrimaryColor),
+                                      textStyle: MaterialStateProperty.all<TextStyle>(TextStyle(color: Colors.white)),
+                                    ),
                                     child: Text('OK'),
                                     onPressed: () {
                                       if (password == "admin") {
@@ -109,12 +111,12 @@ class Home extends StatelessWidget {
           )
       ),
       body: SushiTable(
-        xs: [-0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1],
-        ys: initTables(),
-        thetas: [0.0, 0.0 ,0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-        lefts: ["08","07", "06", "05", "04","03","02","01"],
-        rights: ["18","17", "16", "15", "14","13","12","11"],
-      )
+            xs: [-0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1],
+            ys: initTables(),
+            thetas: [0.0, 0.0 ,0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+            lefts: ["08","07", "06", "05", "04","03","02","01"],
+            rights: ["18","17", "16", "15", "14","13","12","11"],
+          ),
     );
   }
 }

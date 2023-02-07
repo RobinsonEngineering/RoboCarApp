@@ -33,6 +33,7 @@ class _SushiTableState extends State<SushiTable> {
   int value = 2;
 
   int selection = 0;
+  String circleSelection = "";
 
   @override
   Widget build(BuildContext context) {
@@ -40,12 +41,12 @@ class _SushiTableState extends State<SushiTable> {
         color: Colors.orangeAccent,
         width: 3
     ) : Border.all(width: 0, color: kBackgroundColor));
-    BorderSide circleSelected(int s, int i) => (s == i ? BorderSide(
+    BorderSide circleSelected(String s, String i) => (s == i ? BorderSide(
         color: Colors.orangeAccent,
         width: 3
     ) : BorderSide(width: 0, color: kBackgroundColor));
 
-    List<Widget> widgets = List.filled(xs!.length, Center());
+    List<Widget> widgets = List.filled(xs!.length + 1, Center());
     print(selection);
     for (int index = 0; index < this.xs!.length; ++index) {
       widgets[index] = (Align(
@@ -60,17 +61,17 @@ class _SushiTableState extends State<SushiTable> {
                     MaterialButton(
                       onPressed: () {
                         SSocket().setX(lefts![index]);
-                        select(index);
+                        select(index, lefts![index]);
                       },
                       color: Colors.white,
                       padding: EdgeInsets.all(16),
                       shape: CircleBorder(
-                        side: circleSelected(selection, index)
+                        side: circleSelected(circleSelection, lefts![index])
                       ),
                     ),
                     Container(
-                        width: 75,
-                        height: 75,
+                        width: 60,
+                        height: 60,
                         // transform: new Matrix4.identity()..rotateZ(theta!),
                         child: Card(
                           color: kPrimaryColor,
@@ -103,12 +104,12 @@ class _SushiTableState extends State<SushiTable> {
                     MaterialButton(
                       onPressed: () {
                         SSocket().setX(rights![index]);
-                        select(index);
+                        select(index, rights![index]);
                       },
                       color: Colors.black,
                       padding: EdgeInsets.all(16),
                       shape: CircleBorder(
-                          side: circleSelected(selection, index)
+                          side: circleSelected(circleSelection, rights![index])
                       ),
                     ),
                   ]
@@ -116,14 +117,23 @@ class _SushiTableState extends State<SushiTable> {
           )
       ));
     }
+    widgets[xs!.length] = Align(
+      alignment: Alignment(0, 1),
+      child: Container(
+        width: 10000,
+        height: 100,
+        color: Colors.white,
+      ),
+    );
 
     return Stack(
       children: widgets
     );
   }
 
-  void select(int index) {
+  void select(int index, String circle) {
     setState(() {
+      circleSelection = circle;
       selection = index;
     });
   }
