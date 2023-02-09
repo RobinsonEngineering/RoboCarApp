@@ -46,7 +46,7 @@ class _AppbarState extends State<Appbar> {
         print("arduino code: " + message);
         message = code;
       }
-      int temp = int.parse(message.substring(7, 10));
+      int temp = int.parse(message.substring(9, 12));
       if (temp != 0) {
         batteries.add(temp);
       }

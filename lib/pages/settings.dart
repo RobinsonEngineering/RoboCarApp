@@ -17,7 +17,7 @@ class Settings extends StatelessWidget {
         body: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Center(
               child: Container(
-                  height: 375,
+                  height: 475,
                   width: 225,
                   child: Card(
                       color: kPrimaryColor,
@@ -31,34 +31,34 @@ class Settings extends StatelessWidget {
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: (() {
-                        List<Widget> widgets = List.filled(TableManager().GetNumberTables(), Center());
+                        List<Widget> widgets = List.filled(
+                            TableManager().GetNumberTables(), Center());
                         for (int index = 0; index < widgets.length; ++index) {
                           widgets[index] = Container(
                               height: 60,
                               width: 100,
                               child: Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(10))
-                                ),
-                                color: kPrimaryColor,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))),
+                                  color: kPrimaryColor,
                                   child: Padding(
-                                    padding: EdgeInsets.all(10),
-                                    child: Center(
-                                      child: TextFormField(
+                                      padding: EdgeInsets.all(10),
+                                      child: Center(
+                                          child: TextFormField(
                                         style: TextStyle(color: Colors.white),
                                         textAlign: TextAlign.center,
-                                        textAlignVertical: TextAlignVertical.center,
-                                        initialValue: TableManager().getName(index),
+                                        textAlignVertical:
+                                            TextAlignVertical.center,
+                                        initialValue:
+                                            TableManager().getName(index),
                                         decoration: InputDecoration(
-                                            border: InputBorder.none,
+                                          border: InputBorder.none,
                                         ),
-
                                         onChanged: ((String str) {
                                           TableManager().setName(index, str);
                                         }),
-                                      )
-                                    )
-                              )));
+                                      )))));
                         }
                         return widgets;
                       })())))
@@ -170,6 +170,15 @@ class _StatusCardState extends State<StatusCard> {
               style: TextStyle(color: Colors.white, fontSize: 16)),
         ),
         Padding(
+          padding: EdgeInsets.all(10),
+          child: Text(
+              (() {
+                return "Magnet count: " +
+                    int.parse(message.substring(7, 9)).toString();
+              }()),
+              style: TextStyle(color: Colors.white, fontSize: 16)),
+        ),
+        Padding(
             padding: EdgeInsets.all(10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -229,7 +238,36 @@ class _StatusCardState extends State<StatusCard> {
                       },
                     ))
               ],
-            ))
+            )),
+        Padding(
+          padding: EdgeInsets.all(10),
+          child: Container(
+              width: 150,
+              height: 45,
+              child: TextButton(
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.blue),
+                  overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                    (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.hovered))
+                        return Colors.lightBlue.withOpacity(0.04);
+                      if (states.contains(MaterialState.focused) ||
+                          states.contains(MaterialState.pressed))
+                        return Colors.lightBlue.withOpacity(0.12);
+                      return null; // Defer to the widget's default.
+                    },
+                  ),
+                ),
+                child: Text(
+                    style: TextStyle(color: kPrimaryColor), "Reset Magnet Count"),
+                onPressed: () {
+                  SSocket().setX("77");
+                },
+              )),
+        )
       ],
       // ),
       // Container(
