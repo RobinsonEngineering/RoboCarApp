@@ -173,8 +173,10 @@ class _StatusCardState extends State<StatusCard> {
           padding: EdgeInsets.all(10),
           child: Text(
               (() {
-                return "Magnet count: " +
-                    int.parse(message.substring(7, 9)).toString();
+                if (message.substring(7, 8) == '1') {
+                  return "Location: home";
+                }
+                return "Location: not home";
               }()),
               style: TextStyle(color: Colors.white, fontSize: 16)),
         ),
