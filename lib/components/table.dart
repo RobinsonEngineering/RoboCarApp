@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:core';
 import 'dart:io';
 import 'dart:math';
@@ -46,6 +47,18 @@ class _SushiTableState extends State<SushiTable> {
     }
   }
 
+  Timer? timer;
+
+  @override
+  void initState() {
+    super.initState();
+    timer = Timer.periodic(Duration(milliseconds: 100), (_) {
+      setState(() {
+        update();
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     ResetNames();
@@ -58,7 +71,7 @@ class _SushiTableState extends State<SushiTable> {
         width: 3
     ) : BorderSide(width: 0, color: kBackgroundColor));
 
-    List<Widget> widgets = List.filled(xs!.length + 3, Center());
+    List<Widget> widgets = List.filled(xs!.length + 4, Center());
     print(selection);
     for (int index = 0; index < this.xs!.length; ++index) {
       widgets[index] = (Align(
@@ -137,8 +150,8 @@ class _SushiTableState extends State<SushiTable> {
         ),
       )
     );
-    widgets[this.xs!.length + 1] = Align(
-      alignment: Alignment(0, 0.95),
+    widgets[this.xs!.length + 3] = Align(
+      alignment: Alignment(0.3, 0.95),
       child: Container(
           width: 95,
           height: 40,
@@ -164,6 +177,33 @@ class _SushiTableState extends State<SushiTable> {
           )
       ),
     );
+    widgets[this.xs!.length + 1] = Align(
+      alignment: Alignment(-0.3, 0.95),
+      child: Container(
+          width: 120,
+          height: 40,
+          child: TextButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+              foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+              overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                    (Set<MaterialState> states) {
+                  if (states.contains(MaterialState.hovered))
+                    return Colors.lightBlue.withOpacity(0.04);
+                  if (states.contains(MaterialState.focused) ||
+                      states.contains(MaterialState.pressed))
+                    return Colors.lightBlue.withOpacity(0.12);
+                  return null; // Defer to the widget's default.
+                },
+              ),
+            ),
+            child: Text(style: TextStyle(color: kPrimaryColor),"Manual Reverse"),
+            onPressed: () {
+              SSocket().setX("66");
+            },
+          )
+      ),
+    );
 
     return Stack(
       children: widgets
@@ -175,6 +215,19 @@ class _SushiTableState extends State<SushiTable> {
       circleSelection = circle;
       selection = index;
       ResetNames();
+    });
+  }
+
+  void update() {
+    setState(() {
+      String code = SSocket().getArduinoCode();
+      if (code.length > 6 && !code.contains("test")) {
+        if (code.substring(7, 8) == '1') {
+          circleSelection = "";
+          selection = -1;
+          SSocket().setX("00");
+        }
+      }
     });
   }
 }

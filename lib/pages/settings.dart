@@ -17,7 +17,7 @@ class Settings extends StatelessWidget {
         body: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Center(
               child: Container(
-                  height: 475,
+                  height: 440,
                   width: 225,
                   child: Card(
                       color: kPrimaryColor,
@@ -166,17 +166,6 @@ class _StatusCardState extends State<StatusCard> {
                   return "Magnet sensor: active";
                 }
                 return "Magnet sensor: inactive";
-              }()),
-              style: TextStyle(color: Colors.white, fontSize: 16)),
-        ),
-        Padding(
-          padding: EdgeInsets.all(10),
-          child: Text(
-              (() {
-                if (message.substring(7, 8) == '1') {
-                  return "Location: home";
-                }
-                return "Location: not home";
               }()),
               style: TextStyle(color: Colors.white, fontSize: 16)),
         ),

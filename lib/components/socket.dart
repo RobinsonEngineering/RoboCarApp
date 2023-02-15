@@ -112,35 +112,35 @@ class SSocket {
   }
 
   void setup() async {
-    // connect to the socket server
-    final socket = await Socket.connect('192.168.1.65', 8080);
-    print('Connected to: ${socket.remoteAddress.address}:${socket.remotePort}');
+    // // connect to the socket server
+    // final socket = await Socket.connect('192.168.1.65', 8080);
+    // print('Connected to: ${socket.remoteAddress.address}:${socket.remotePort}');
 
-    // listen for responses from the server
-    socket.listen(
+    // // listen for responses from the server
+    // socket.listen(
 
-      // handle data from the server
-          (Uint8List data) {
-        final serverResponse = String.fromCharCodes(data);
-        recievedMessage = serverResponse;
-        print('Server: $serverResponse');
-        socket.write(x + delay);
-      },
+    //   // handle data from the server
+    //       (Uint8List data) {
+    //     final serverResponse = String.fromCharCodes(data);
+    //     recievedMessage = serverResponse;
+    //     print('Server: $serverResponse');
+    //     socket.write(x + delay);
+    //   },
 
-      // handle errors
-      onError: (error) async {
-        print(error);
-        await Future.delayed(Duration(milliseconds: 10000));
-        setup();
-      },
+    //   // handle errors
+    //   onError: (error) async {
+    //     print(error);
+    //     await Future.delayed(Duration(milliseconds: 10000));
+    //     setup();
+    //   },
 
-      // handle server ending connection
-      onDone: () async {
-        print('Server left.');
-        await Future.delayed(Duration(milliseconds: 10000));
-        setup();
-      },
-    );
+    //   // handle server ending connection
+    //   onDone: () async {
+    //     print('Server left.');
+    //     await Future.delayed(Duration(milliseconds: 10000));
+    //     setup();
+    //   },
+    // );
 
     // while (true) {
     //   socket.write(x);
