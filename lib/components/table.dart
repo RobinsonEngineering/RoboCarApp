@@ -71,19 +71,12 @@ class _SushiTableState extends State<SushiTable> {
         width: 3
     ) : BorderSide(width: 0, color: kBackgroundColor));
 
-    List<Widget> widgets = List.filled(xs!.length + 4, Center());
+    List<Widget> widgets = List.filled(xs!.length + 6, Center());
     print(selection);
     for (int index = 0; index < this.xs!.length; ++index) {
-      widgets[index] = (Align(
+      widgets[index + 1] = (Align(
           alignment: Alignment(xs![index], ys![index]),
-          child: Container(
-              height: 100,
-              width: 275,
-              // transform: new Matrix4.identity()..rotateZ(thetas![index] * pi / 180),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    MaterialButton(
+          child: MaterialButton(
                       onPressed: () {
                         SSocket().setX(lefts![index]);
                         print("table: " + lefts![index]);
@@ -94,54 +87,25 @@ class _SushiTableState extends State<SushiTable> {
                       shape: CircleBorder(
                         side: circleSelected(circleSelection, lefts![index])
                       ),
-                    ),
-                    Container(
-                        width: 60,
-                        height: 60,
-                        // transform: new Matrix4.identity()..rotateZ(theta!),
-                        child: Card(
-                          color: kPrimaryColor,
-                          child: Center(
-                            child: Text(
-                              TableManager().getName(index),
-                              style: TextStyle(
-                                color: Colors.white
-                              )
-                            )
-                          )
-                        ),
-                        decoration: BoxDecoration(
-                          border: boxSelected(selection, index),
-                        ),
-                    ),
-                    MaterialButton(
-                      onPressed: () {
-                        SSocket().setX(rights![index]);
-                        print("table: " + rights![index]);
-                        select(index, rights![index]);
-                      },
-                      color: Colors.black,
-                      padding: EdgeInsets.all(16),
-                      shape: CircleBorder(
-                          side: circleSelected(circleSelection, rights![index])
-                      ),
-                    ),
-                  ]
-              )
-          )
+                    )
       ));
     }
 
-    widgets[xs!.length] = Align(
+    widgets[0] = Align(
       alignment: Alignment(0, 1),
+      child: Image.asset('assets/img.jpg')
+    );
+
+    widgets[xs!.length + 1] = Align(
+      alignment: Alignment(-1, 0),
       child: Container(
-        width: 10000,
-        height: 140,
+        width: 140,
+        height: 10000,
         color: kPrimaryColor,
       ),
     );
-    widgets[xs!.length + 2] = Align(
-      alignment: Alignment(0, 0.79),
+    widgets[xs!.length + 3] = Align(
+      alignment: Alignment(-0.9, 0.1),
       child: Text(
         "Kitchen",
         style: TextStyle(
@@ -150,8 +114,8 @@ class _SushiTableState extends State<SushiTable> {
         ),
       )
     );
-    widgets[this.xs!.length + 3] = Align(
-      alignment: Alignment(0.3, 0.95),
+    widgets[this.xs!.length + 4] = Align(
+      alignment: Alignment(-0.9, 0.6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ),
       child: Container(
           width: 95,
           height: 40,
@@ -177,8 +141,8 @@ class _SushiTableState extends State<SushiTable> {
           )
       ),
     );
-    widgets[this.xs!.length + 1] = Align(
-      alignment: Alignment(-0.3, 0.95),
+    widgets[this.xs!.length + 2] = Align(
+      alignment: Alignment(-0.95, 0.3),
       child: Container(
           width: 120,
           height: 40,

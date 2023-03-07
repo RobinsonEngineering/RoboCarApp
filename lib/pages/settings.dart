@@ -24,44 +24,7 @@ class Settings extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),
                       child: Center(child: StatusCard())))),
-          Center(
-              child: Container(
-                  height: 1000,
-                  width: 200,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: (() {
-                        List<Widget> widgets = List.filled(
-                            TableManager().GetNumberTables(), Center());
-                        for (int index = 0; index < widgets.length; ++index) {
-                          widgets[index] = Container(
-                              height: 60,
-                              width: 100,
-                              child: Card(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10))),
-                                  color: kPrimaryColor,
-                                  child: Padding(
-                                      padding: EdgeInsets.all(10),
-                                      child: Center(
-                                          child: TextFormField(
-                                        style: TextStyle(color: Colors.white),
-                                        textAlign: TextAlign.center,
-                                        textAlignVertical:
-                                            TextAlignVertical.center,
-                                        initialValue:
-                                            TableManager().getName(index),
-                                        decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                        ),
-                                        onChanged: ((String str) {
-                                          TableManager().setName(index, str);
-                                        }),
-                                      )))));
-                        }
-                        return widgets;
-                      })())))
+          
         ]));
   }
 }
